@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var app = express();
 var path = require("path");
 var amqp = require("amqplib/callback_api");
-var rabbitMQURL = process.env.RABBITMQURL || "amqp://localhost";
+var rabbitMQURL = process.env.RABBITMQURL ? "amqp://"+process.env.RABBITMQURL : "amqp://localhost";
 
 
 app.use(bodyParser.json());

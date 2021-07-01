@@ -4,6 +4,7 @@ var app = express();
 var path = require("path");
 var amqp = require("amqplib/callback_api");
 var rabbitMQURL = process.env.RABBITMQURL ? "amqp://"+process.env.RABBITMQURL : "amqp://localhost";
+var queueName = process.env.RABBITMQ_QUEUE || "infyMessageQueue";
 
 
 app.use(bodyParser.json());
@@ -23,7 +24,6 @@ app.get("/consumer/api/receive-message", function (req, res) {
 			if(err){
 				throw err;
 			}
-			let queueName = "publisherQueue";
 			var messageString = "[]";
 			channel.assertQueue(queueName, {
 				durable : false

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	
+	<base href="/">
+
+    <title>Infosys Message Consumer App</title>
+    <link rel="stylesheet" href="/client/public/lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/client/public/lib/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/client/public/lib/angular-ui-notification/dist/angular-ui-notification.css">
+    <link rel="stylesheet" href="/client/public/lib/components-font-awesome/css/all.min.css">
+
+    <script type="text/javascript" src="/client/public/lib/angular/angular.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/client/public/lib/ng-file-upload/ng-file-upload.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-messages/angular-messages.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-mocks/angular-mocks.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-ui-notification/dist/angular-ui-notification.js"></script>
+    <script type="text/javascript" src="/client/public/lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/client/public/lib/owasp-password-strength-test/owasp-password-strength-test.js"></script>
+    <script type="text/javascript" src="/client/public/manifest/angular-avatar/dist/angular-avatar.min.js"></script>
+
+
+    <link rel="stylesheet" href="/client/modules/css/consumer.css">
+    <script type="text/javascript" src="/client/modules/app.js"></script>
+  </head>
+
+  <body style="background-color: #F2F4F4;">
+    <div class="consumer-sidebar">
+      <div class="all-side-bar-icon"><i class="fas fa-home"></i></div>
+        <div class="all-side-bar-icon"><i class="fas fa-comment-alt" style="color: #4760f0;"></i></div>
+        <div class="all-side-bar-icon"><i class="fas fa-user-friends"></i></div>
+        <div class="last-sidebar-icon"><i class="fas fa-cog"></i></div>
+      
+    </div>
+    <div class="consumer-content">
+      <header ng-include="'/client/modules/views/header.html'"></header>
+      <ui-view></ui-view>
+    </div>
+  </body>
+</html>

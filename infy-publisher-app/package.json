@@ -1,0 +1,25 @@
+{
+  "name": "infosys_publisher_app",
+  "version": "1.0.0",
+  "description": "App to publish message to RabbitMQ",
+  "main": "server.js",
+  "dependencies": {
+    "amqplib": "^0.8.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "randomcolor": "^0.6.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "publisher",
+    "rabbitmq",
+    "app"
+  ],
+  "author": "Infosys Ltd.",
+  "license": "ISC"
+}

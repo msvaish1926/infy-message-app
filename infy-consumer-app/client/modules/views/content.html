@@ -1,0 +1,12 @@
+<section>
+    <div class="consumer-div" data-ng-init="vm.updateMessage();">
+
+        <ui-view  ng-if="!vm.loading"></ui-view>
+
+        <ul class="list-group" ng-if="vm.loading">
+            <li class="list-group-item">
+                <h2 class="no-message-label"><i class="fas fa-circle-notch fa-spin"></i> Loading...</h2>
+            </li>
+        </ul>
+    </div>
+</section>

@@ -1,0 +1,37 @@
+@import url('./font.css');
+.publisher-logo{
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+    font-weight: 500;
+    color: black;
+}
+
+.ng-upload-div{
+    width: 90%;
+    margin-left: 5%;
+    height: 400px;
+    padding: 10%;
+    cursor: pointer;
+    background-color: lavender;
+    border-radius: 1pc;
+    margin-top: 8%;
+    background: #fc00ff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #00dbde, #fc00ff);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #00dbde, #fc00ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.ng-upload-label{
+    font-family: 'Montserrat', sans-serif;
+    font-size: xx-large;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+.publisher-navbar{
+    background-image: none;
+    background-color: #f8f9f9;
+}

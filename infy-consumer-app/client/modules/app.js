@@ -61,7 +61,7 @@ app.controller('ConsumerController', function ($scope, $http, $state, Notificati
       console.log(err);
       messageService.createMessage([]);
       vm.loading = false;
-      Notification.error({ message: "Error while fetching new messages.", title: 'Error Notification', positionY: 'top', positionX: 'right' });
+      Notification.error({ message: err.data.message || "Error while fetching new messages.", title: 'Error Notification', positionY: 'top', positionX: 'right' });
     });
     
   }
@@ -80,7 +80,7 @@ app.controller('ConsumerController', function ($scope, $http, $state, Notificati
       }
     }).catch(err => {
       console.log(err)
-      Notification.error({ message: "Error while fetching new messages.", title: 'Error Notification', positionY: 'top', positionX: 'right' });
+      Notification.error({ message: err.data.message || "Error while fetching new messages.", title: 'Error Notification', positionY: 'top', positionX: 'right' });
     })
   }
 

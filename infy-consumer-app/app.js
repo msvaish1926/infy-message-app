@@ -17,27 +17,33 @@ app.get("/consumer/api/receive-message", function (req, res) {
 	console.log("inside consumer");
 	try{
 		amqp.connect(rabbitMQURL, (err, connection) => {
-		if (err) {
-			throw err
-		}
-		connection.createChannel((err,channel)=>{
-			if(err){
-				throw err;
+			if (err) {
+				console.log(err);
+				res.status(400).send({message : "Error while receiving connecting to RabbitMQ."});
 			}
-			var messageString = "[]";
-			channel.assertQueue(queueName, {
-				durable : false
-			});
-			channel.consume(queueName,(mssg)=>{
-				messageString = mssg.content.toString();
-				
-			});
-
-			setTimeout(() => {
-				channel.close();
-				res.send({message : JSON.parse(messageString)});
-			}, 1000);
-		})
+			else{
+				connection.createChannel((err,channel)=>{
+					if(err){
+						console.log(err);
+						res.status(400).send({message : "Error while receiving connecting to RabbitMQ channel."});
+					}
+					else{
+					var messageString = "[]";
+					channel.assertQueue(queueName, {
+						durable : false
+					});
+					channel.consume(queueName,(mssg)=>{
+						messageString = mssg.content.toString();
+						
+					});
+		
+					setTimeout(() => {
+						channel.close();
+						res.send({message : JSON.parse(messageString)});
+					}, 1000);
+					}
+				})
+			}
 
 	})
 	}catch(err){

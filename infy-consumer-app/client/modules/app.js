@@ -4,11 +4,9 @@ app.config(function ($stateProvider, $locationProvider) {
   $stateProvider
     .state('home', {
       url: '/',
-      templateUrl: '/client/modules/views/content.html',
-      controller: 'ContentController',
-      controllerAs: 'vm'
-    }).state('home.messages', {
-      url: 'messages',
+      params: {
+        loadUpdate: null,
+      },
       templateUrl: '/client/modules/views/consumer.html',
       controller: 'ConsumerController',
       controllerAs: 'vm'
@@ -32,24 +30,33 @@ app.factory('messageService', function () {
   return obj;
 });
 
-
-app.controller('ContentController', function ($http, Notification, messageService,$state) {
+app.controller('ConsumerController', function ($scope, $http, $state, Notification, messageService) {
   var vm = this;
-  vm.loading = true;
+  vm.loading = $state.params.loadUpdate ? false : true;
+  vm.loadUpdate = false;
+  vm.messageList = null;
 
-  vm.updateMessage = function () {
+
+  var createMessage = function () {
+    vm.loading = true;
     $http.get("/consumer/api/receive-message").then(response => {
 
       var newMessages = response.data.message;
 
       if (newMessages.length > 0) {
         messageService.createMessage(newMessages);
-        Notification.info({ message: "Received new message.", title: 'Information', positionY: 'top', positionX: 'right' });
-
       } else {
         messageService.createMessage([]);
       }
-      vm.loading = false;
+      
+      setTimeout(() => {
+        if(newMessages.length >0){
+          Notification.info({ message: "Received new message.", title: 'Information', positionY: 'top', positionX: 'right' });
+        }
+        vm.loading = false;
+        $state.go($state.current, {loadUpdate: "YES"}, {reload: true});
+      }, 1000);
+
     }).catch(err => {
       console.log(err);
       messageService.createMessage([]);
@@ -58,16 +65,6 @@ app.controller('ContentController', function ($http, Notification, messageServic
     });
     
   }
-
-  // updateMessage();
-});
-
-
-app.controller('ConsumerController', function ($scope, $http, $state, Notification, messageService) {
-  var vm = this;
-
-  vm.messageList = null;
-  vm.loading = true;
 
   var updateMessage = function () {
     $http.get("/consumer/api/receive-message").then(response => {
@@ -79,7 +76,7 @@ app.controller('ConsumerController', function ($scope, $http, $state, Notificati
       if (newMessages.length > 0) {
         Notification.info({ message: "Received new message.", title: 'Information', positionY: 'top', positionX: 'right' });
         messageService.insertMessage(newMessages);
-        $state.reload($state.current.name);
+        $state.go($state.current, {loadUpdate: "YES"}, {reload: true});
       }
     }).catch(err => {
       console.log(err)
@@ -90,11 +87,19 @@ app.controller('ConsumerController', function ($scope, $http, $state, Notificati
   var loadMessage = function(){
     var newMessages = messageService.getMessage()
     vm.messageList = newMessages.length > 0 ? newMessages : null;
+    vm.loadUpdate = true;
   }
 
-  loadMessage();
-  setInterval(() => {
-    updateMessage();
+  if($state.params.loadUpdate){
+    loadMessage();
+    setInterval(() => {
+      updateMessage();
+    }, 10000);
+  }else{
+    createMessage();
+  }
 
-  }, 10000)
+
+
+
 });

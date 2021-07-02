@@ -1,57 +1,70 @@
 <section>
-    <ul class="list-group" ng-if="!vm.messageList">
-        <li class="list-group-item">
-            <h2 class="no-message-label">No messages in the Message Box</h2>
-        </li>
-    </ul>
+    <div class="consumer-div">
 
-    <ul class="list-group" ng-if="vm.messageList">
-        <li class="list-group-item" ng-repeat="user in vm.messageList track by $index">
-            <div class="grid-container message-grid">
-                <div class="grid-item"  style="padding-right: 0;padding-left: 30px;">
-                    <ng-avatar initials="{{user.initials}}" ng-if="vm.messageList" width="70" auto-color="true" text-color="white" class="avatar" font-weight="700" font-scale="70" round-shape="true" bg-color="{{user.color}}" bind="true" ></ng-avatar>
-                </div>
-                <div class="grid-item message-div">
-                    <div class="row remove-margin">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <section ng-if="!vm.loading && vm.loadUpdate">
+            <ul class="list-group" ng-if="!vm.messageList">
+                <li class="list-group-item">
+                    <h2 class="no-message-label">No messages in the Message Box</h2>
+                </li>
+            </ul>
+        
+            <ul class="list-group" ng-if="vm.messageList">
+                <li class="list-group-item" ng-repeat="user in vm.messageList track by $index">
+                    <div class="grid-container message-grid">
+                        <div class="grid-item"  style="padding-right: 0;padding-left: 30px;">
+                            <ng-avatar initials="{{user.initials}}" ng-if="vm.messageList" width="70" auto-color="true" text-color="white" class="avatar" font-weight="700" font-scale="70" round-shape="true" bg-color="{{user.color}}" bind="true" ></ng-avatar>
+                        </div>
+                        <div class="grid-item message-div">
                             <div class="row remove-margin">
-                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 detail-label-div name-div message-label-div" style="font-size: small;">
-                                    {{user.firstname}} {{user.lastname}}
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 message-label-div">
-                                    <span class="badge profession-badge">{{user.profession}}</span>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 detail-label-div message-label-div">
-                                    <i class="fas fa-map-marker-alt" style="color: #E74C3C;font-size: 1.1em;"></i>  {{user.place}},&nbsp;{{user.state}}
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 col-md-offset-1 col-lg-offset-1 message-label-div">
-                                    <div class="grid-container icon-div">
-                                        <div class="grid-item">
-                                            <i class="fas fa-phone-alt"></i>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="row remove-margin">
+                                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 detail-label-div name-div message-label-div" style="font-size: small;">
+                                            {{user.firstname}} {{user.lastname}}
                                         </div>
-                                        <div class="grid-item">
-                                            <i class="far fa-envelope"></i>
+                                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 message-label-div">
+                                            <span class="badge profession-badge">{{user.profession}}</span>
                                         </div>
-                                        <div class="grid-item">
-                                            <i class="fas fa-share-square"></i>
+                                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 detail-label-div message-label-div">
+                                            <i class="fas fa-map-marker-alt" style="color: #E74C3C;font-size: 1.1em;"></i>  {{user.place}},&nbsp;{{user.state}}
                                         </div>
-                                        <div class="grid-item">
-                                            <i class="fas fa-share-alt"></i>
+                                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 col-md-offset-1 col-lg-offset-1 message-label-div">
+                                            <div class="grid-container icon-div">
+                                                <div class="grid-item">
+                                                    <i class="fas fa-phone-alt"></i>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <i class="far fa-envelope"></i>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <i class="fas fa-share-square"></i>
+                                                </div>
+                                                <div class="grid-item">
+                                                    <i class="fas fa-share-alt"></i>
+                                                </div>
+                                            </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
-                                
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 message-label-div">
+                                    <label>{{user.message}}</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 message-time-div">
+                                    {{user.sendTime  | date:'medium'}}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 message-label-div">
-                            <label>{{user.message}}</label>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 message-time-div">
-                            {{user.sendTime  | date:'medium'}}
-                        </div>
                     </div>
-                </div>
-            </div>
-        </li>
-      </ul>
+                </li>
+              </ul>
+        </section>
+
+        <section ng-if="vm.loading && !vm.loadUpdate">
+            <ul class="list-group" >
+                <li class="list-group-item">
+                    <h2 class="no-message-label"><i class="fas fa-circle-notch fa-spin"></i> Loading...</h2>
+                </li>
+            </ul>
+        </section>
+    </div>
 </section>
